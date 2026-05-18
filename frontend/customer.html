@@ -1,0 +1,1333 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="UTF-8" />
+
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0" />
+
+  <title>LoanIQ — Customer Portal</title>
+
+  <link rel="preconnect"
+        href="https://fonts.googleapis.com" />
+
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap"
+        rel="stylesheet" />
+
+  <link rel="stylesheet"
+        href="styles.css" />
+
+</head>
+
+<body>
+
+<div class="app-shell">
+
+  <!-- Sidebar -->
+
+  <aside class="sidebar">
+
+    <div class="brand">
+
+      <span class="brand-icon">
+        ⬡
+      </span>
+
+      <span class="brand-name">
+        LoanIQ
+      </span>
+
+    </div>
+
+    <nav class="sidebar-nav">
+
+      <a href="#"
+         class="nav-item active"
+         data-page="dashboard">
+
+        <span class="nav-icon">◫</span>
+
+        Dashboard
+
+      </a>
+
+      <a href="#"
+         class="nav-item"
+         data-page="apply">
+
+        <span class="nav-icon">✚</span>
+
+        Apply Loan
+
+      </a>
+
+      <a href="#"
+         class="nav-item"
+         data-page="applications">
+
+        <span class="nav-icon">☰</span>
+
+        My Applications
+
+      </a>
+
+      <a href="#"
+         class="nav-item"
+         onclick="logout()">
+
+        <span class="nav-icon">↩</span>
+
+        Logout
+
+      </a>
+
+    </nav>
+
+    <div class="sidebar-footer">
+
+      <div class="user-badge">
+
+        <div class="user-avatar"
+             id="avatarText">
+
+          OP
+
+        </div>
+
+        <div class="user-info">
+
+          <span class="user-name"
+                id="username">
+
+            Customer
+
+          </span>
+
+          <span class="user-role">
+
+            Customer Portal
+
+          </span>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </aside>
+
+  <!-- Main -->
+
+  <main class="main-content">
+
+    <!-- Dashboard -->
+
+    <section class="page active"
+             id="page-dashboard">
+
+      <div class="page-header">
+
+        <div>
+
+          <h1 class="page-title">
+
+            Welcome Back 👋
+
+          </h1>
+
+          <p class="page-subtitle">
+
+            Monitor your loan applications and approvals.
+
+          </p>
+
+        </div>
+
+        <div class="header-actions">
+
+          <span class="date-badge">
+
+            May 17, 2026
+
+          </span>
+
+        </div>
+
+      </div>
+
+      <div class="kpi-grid">
+
+        <div class="kpi-card">
+
+          <div class="kpi-label">
+            Applications
+          </div>
+
+          <div class="kpi-value">
+            4
+          </div>
+
+          <div class="kpi-change positive">
+            +1 this month
+          </div>
+
+        </div>
+
+        <div class="kpi-card">
+
+          <div class="kpi-label">
+            Approved
+          </div>
+
+          <div class="kpi-value">
+            2
+          </div>
+
+          <div class="kpi-change positive">
+            Excellent standing
+          </div>
+
+        </div>
+
+        <div class="kpi-card">
+
+          <div class="kpi-label">
+            Pending
+          </div>
+
+          <div class="kpi-value">
+            1
+          </div>
+
+          <div class="kpi-change">
+            Under review
+          </div>
+
+        </div>
+
+        <div class="kpi-card">
+
+          <div class="kpi-label">
+            Credit Score
+          </div>
+
+          <div class="kpi-value">
+            742
+          </div>
+
+          <div class="kpi-change positive">
+            Excellent
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+    <!-- Apply -->
+
+    <section class="page"
+             id="page-apply">
+
+      <div class="page-header">
+
+        <div>
+
+          <h1 class="page-title">
+
+            Loan Application
+
+          </h1>
+
+          <p class="page-subtitle">
+
+            AI powered eligibility assessment
+
+          </p>
+
+        </div>
+
+      </div>
+
+      <div class="apply-layout">
+
+        <!-- Form -->
+
+        <form class="application-form"
+              id="loanForm">
+
+          <!-- Steps -->
+
+          <div class="steps-bar">
+
+            <div class="step active"
+                 data-step="1">
+
+              <span class="step-num">1</span>
+
+              <span class="step-label">
+                Personal
+              </span>
+
+            </div>
+
+            <div class="step-line"></div>
+
+            <div class="step"
+                 data-step="2">
+
+              <span class="step-num">2</span>
+
+              <span class="step-label">
+                Financial
+              </span>
+
+            </div>
+
+            <div class="step-line"></div>
+
+            <div class="step"
+                 data-step="3">
+
+              <span class="step-num">3</span>
+
+              <span class="step-label">
+                Loan
+              </span>
+
+            </div>
+
+            <div class="step-line"></div>
+
+            <div class="step"
+                 data-step="4">
+
+              <span class="step-num">4</span>
+
+              <span class="step-label">
+                Review
+              </span>
+
+            </div>
+
+          </div>
+
+          <!-- STEP 1 -->
+
+          <div class="form-step active"
+               id="step-1">
+
+            <h3 class="step-title">
+              Personal Information
+            </h3>
+
+            <div class="field-grid">
+
+              <div class="field-group">
+
+                <label>Full Name</label>
+
+                <input type="text"
+                       id="fullName"
+                       required />
+
+              </div>
+
+              <div class="field-group">
+
+                <label>Age</label>
+
+                <input type="number"
+                       id="age"
+                       required />
+
+              </div>
+
+              <div class="field-group">
+
+                <label>Education</label>
+
+                <select id="education">
+
+                  <option>Graduate</option>
+                  <option>Not Graduate</option>
+                  <option>Post Graduate</option>
+
+                </select>
+
+              </div>
+
+              <div class="field-group">
+
+                <label>Dependents</label>
+
+                <select id="dependents">
+
+                  <option value="0">0</option>
+                  <option value="1">1</option>
+                  <option value="2">2</option>
+                  <option value="3+">3+</option>
+
+                </select>
+
+              </div>
+
+            </div>
+
+            <div class="step-actions">
+
+              <button type="button"
+                      class="btn-primary"
+                      onclick="nextStep(2)">
+
+                Continue →
+
+              </button>
+
+            </div>
+
+          </div>
+
+          <!-- STEP 2 -->
+
+          <div class="form-step"
+               id="step-2">
+
+            <h3 class="step-title">
+              Financial Information
+            </h3>
+
+            <div class="field-grid">
+
+              <div class="field-group">
+
+                <label>Employment</label>
+
+                <select id="selfEmployed">
+
+                  <option value="No">
+                    Salaried
+                  </option>
+
+                  <option value="Yes">
+                    Self Employed
+                  </option>
+
+                </select>
+
+              </div>
+
+              <div class="field-group">
+
+                <label>Monthly Income</label>
+
+                <input type="number"
+                       id="applicantIncome"
+                       required />
+
+              </div>
+
+              <div class="field-group">
+
+                <label>Co Applicant Income</label>
+
+                <input type="number"
+                       id="coapplicantIncome"
+                       value="0" />
+
+              </div>
+
+              <div class="field-group">
+
+                <label>CIBIL Score</label>
+
+                <input type="number"
+                       id="creditScore"
+                       required />
+
+              </div>
+
+            </div>
+
+            <div class="score-meter">
+
+              <div class="meter-track">
+
+                <div class="meter-fill"
+                     id="meterFill"></div>
+
+              </div>
+
+              <div class="score-category"
+                   id="scoreCategory">
+
+                Enter CIBIL score
+
+              </div>
+
+            </div>
+
+            <div class="step-actions">
+
+              <button type="button"
+                      class="btn-outline"
+                      onclick="prevStep(1)">
+
+                ← Back
+
+              </button>
+
+              <button type="button"
+                      class="btn-primary"
+                      onclick="nextStep(3)">
+
+                Continue →
+
+              </button>
+
+            </div>
+
+          </div>
+
+          <!-- STEP 3 -->
+
+          <div class="form-step"
+               id="step-3">
+
+            <h3 class="step-title">
+              Loan Details
+            </h3>
+
+            <div class="field-grid">
+
+              <div class="field-group">
+
+                <label>Loan Type</label>
+
+                <select id="loanType">
+
+                  <option value="Home">
+                    Home Loan
+                  </option>
+
+                  <option value="Personal">
+                    Personal Loan
+                  </option>
+
+                  <option value="Business">
+                    Business Loan
+                  </option>
+
+                </select>
+
+              </div>
+
+              <div class="field-group">
+
+                <label>Loan Amount</label>
+
+                <input type="number"
+                       id="loanAmount"
+                       required />
+
+              </div>
+
+              <div class="field-group">
+
+                <label>Loan Term</label>
+
+                <select id="loanTerm">
+
+                  <option value="12">12</option>
+                  <option value="24">24</option>
+                  <option value="36">36</option>
+                  <option value="60">60</option>
+
+                </select>
+
+              </div>
+
+              <div class="field-group">
+
+                <label>Property Area</label>
+
+                <select id="propertyArea">
+
+                  <option>Urban</option>
+                  <option>Semiurban</option>
+                  <option>Rural</option>
+
+                </select>
+
+              </div>
+
+            </div>
+
+            <!-- EMI -->
+
+            <div class="live-emi-box">
+
+              <div class="emi-label">
+                Estimated EMI
+              </div>
+
+              <div class="emi-value"
+                   id="emiVal">
+
+                ₹0
+
+              </div>
+
+              <div class="emi-note">
+                Based on estimated interest rate
+              </div>
+
+            </div>
+
+            <div class="step-actions">
+
+              <button type="button"
+                      class="btn-outline"
+                      onclick="prevStep(2)">
+
+                ← Back
+
+              </button>
+
+              <button type="button"
+                      class="btn-primary"
+                      onclick="showReview()">
+
+                Review →
+
+              </button>
+
+            </div>
+
+          </div>
+
+          <!-- STEP 4 -->
+
+          <div class="form-step"
+               id="step-4">
+
+            <h3 class="step-title">
+              Review & Submit
+            </h3>
+
+            <div class="review-grid"
+                 id="reviewGrid"></div>
+
+            <div class="step-actions">
+
+              <button type="button"
+                      class="btn-outline"
+                      onclick="prevStep(3)">
+
+                ← Edit
+
+              </button>
+
+              <button type="submit"
+                      class="btn-primary">
+
+                Submit Application
+
+              </button>
+
+            </div>
+
+          </div>
+
+        </form>
+
+        <!-- Eligibility Panel -->
+
+        <div class="score-panel">
+
+          <h4 class="panel-title">
+
+            Live Eligibility Score
+
+          </h4>
+
+          <div class="eligibility-ring-wrapper">
+
+            <svg class="eligibility-ring"
+                 viewBox="0 0 120 120">
+
+              <circle cx="60"
+                      cy="60"
+                      r="50"
+                      fill="none"
+                      stroke="#2b2b35"
+                      stroke-width="8"/>
+
+              <circle cx="60"
+                      cy="60"
+                      r="50"
+                      fill="none"
+                      stroke="#10d9a0"
+                      stroke-width="8"
+                      stroke-dasharray="314"
+                      stroke-dashoffset="314"
+                      stroke-linecap="round"
+                      transform="rotate(-90 60 60)"
+                      id="eligibilityArc"/>
+
+              <text x="60"
+                    y="55"
+                    text-anchor="middle"
+                    class="ring-score"
+                    id="ringScore">
+
+                —
+
+              </text>
+
+              <text x="60"
+                    y="72"
+                    text-anchor="middle"
+                    class="ring-label">
+
+                Score
+
+              </text>
+
+            </svg>
+
+          </div>
+
+          <div class="eligibility-verdict"
+               id="eligibilityVerdict">
+
+            Fill the form to calculate score
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+    <!-- Applications -->
+
+    <section class="page"
+             id="page-applications">
+
+      <div class="page-header">
+
+        <div>
+
+          <h1 class="page-title">
+            My Applications
+          </h1>
+
+          <p class="page-subtitle">
+            Track your submitted applications
+          </p>
+
+        </div>
+
+      </div>
+
+      <div class="applications-table">
+
+        <table>
+
+          <thead>
+
+            <tr>
+
+              <th>ID</th>
+              <th>Loan Type</th>
+              <th>Amount</th>
+              <th>Status</th>
+
+            </tr>
+
+          </thead>
+
+          <tbody id="applicationsTableBody">
+
+          </tbody>
+
+        </table>
+
+      </div>
+
+    </section>
+
+  </main>
+
+</div>
+
+<script>
+
+/* USER */
+
+const user = JSON.parse(
+  localStorage.getItem("user")
+);
+
+if(user){
+
+  document.getElementById("username")
+  .innerText = user.full_name;
+
+  document.getElementById("avatarText")
+  .innerText = user.full_name
+  .split(" ")
+  .map(x=>x[0])
+  .join("")
+  .substring(0,2);
+}
+
+/* NAVIGATION */
+
+const navItems =
+document.querySelectorAll(".nav-item");
+
+const pages =
+document.querySelectorAll(".page");
+
+navItems.forEach(item=>{
+
+  item.addEventListener("click",()=>{
+
+    const page =
+    item.dataset.page;
+
+    if(!page) return;
+
+    navItems.forEach(nav=>
+      nav.classList.remove("active")
+    );
+
+    item.classList.add("active");
+
+    pages.forEach(pageEl=>
+      pageEl.classList.remove("active")
+    );
+
+    document
+    .getElementById(`page-${page}`)
+    .classList.add("active");
+
+  });
+
+});
+
+/* LOGOUT */
+
+function logout(){
+
+  localStorage.clear();
+
+  window.location.href =
+  "login.html";
+}
+
+/* STEP FORM */
+
+function nextStep(step){
+
+  document
+  .querySelectorAll(".form-step")
+  .forEach(el=>
+    el.classList.remove("active")
+  );
+
+  document
+  .getElementById(`step-${step}`)
+  .classList.add("active");
+
+  updateStepUI(step);
+}
+
+function prevStep(step){
+
+  nextStep(step);
+}
+
+function updateStepUI(step){
+
+  document
+  .querySelectorAll(".step")
+  .forEach((el,index)=>{
+
+    el.classList.remove("active","done");
+
+    if(index + 1 < step){
+
+      el.classList.add("done");
+
+    }else if(index + 1 === step){
+
+      el.classList.add("active");
+    }
+
+  });
+}
+
+/* ELIGIBILITY */
+
+const scoreInputs = [
+  "creditScore",
+  "applicantIncome",
+  "loanAmount"
+];
+
+scoreInputs.forEach(id=>{
+
+  document
+  .getElementById(id)
+  .addEventListener("input",updateEligibility);
+
+});
+
+function updateEligibility(){
+
+  const credit =
+  Number(
+    document
+    .getElementById("creditScore")
+    .value || 0
+  );
+
+  const income =
+  Number(
+    document
+    .getElementById("applicantIncome")
+    .value || 0
+  );
+
+  const loan =
+  Number(
+    document
+    .getElementById("loanAmount")
+    .value || 0
+  );
+
+  let score = 0;
+
+  score += Math.min(credit / 9, 40);
+
+  score += Math.min(income / 3000, 35);
+
+  if(loan > 0){
+
+    score += Math.max(
+      25 - (loan / income / 100),
+      5
+    );
+  }
+
+  score = Math.min(
+    Math.round(score),
+    100
+  );
+
+  document
+  .getElementById("ringScore")
+  .innerText = score;
+
+  const circumference = 314;
+
+  const offset =
+  circumference -
+  (score / 100) * circumference;
+
+  document
+  .getElementById("eligibilityArc")
+  .style.strokeDashoffset = offset;
+
+  const verdict =
+  document.getElementById(
+    "eligibilityVerdict"
+  );
+
+  if(score >= 75){
+
+    verdict.innerText =
+    "High approval probability";
+
+  }else if(score >= 50){
+
+    verdict.innerText =
+    "Moderate approval probability";
+
+  }else{
+
+    verdict.innerText =
+    "Low approval probability";
+  }
+
+  /* Credit Meter */
+
+  const meter =
+  document.getElementById("meterFill");
+
+  meter.style.width =
+  `${credit/9}%`;
+
+  const category =
+  document.getElementById("scoreCategory");
+
+  if(credit >= 750){
+
+    category.innerText =
+    "Excellent Credit";
+
+  }else if(credit >= 650){
+
+    category.innerText =
+    "Good Credit";
+
+  }else{
+
+    category.innerText =
+    "Poor Credit";
+  }
+
+  updateEMI();
+}
+
+/* EMI */
+
+function updateEMI(){
+
+  const loan =
+  Number(
+    document
+    .getElementById("loanAmount")
+    .value || 0
+  );
+
+  const months =
+  Number(
+    document
+    .getElementById("loanTerm")
+    .value || 12
+  );
+
+  const r =
+  9.5 / 12 / 100;
+
+  const emi =
+  loan * r *
+  Math.pow(1+r,months) /
+  (Math.pow(1+r,months)-1);
+
+  if(isFinite(emi)){
+
+    document
+    .getElementById("emiVal")
+    .innerText =
+    `₹${Math.round(emi).toLocaleString()}`;
+  }
+}
+
+document
+.getElementById("loanAmount")
+.addEventListener("input",updateEMI);
+
+document
+.getElementById("loanTerm")
+.addEventListener("change",updateEMI);
+
+/* REVIEW */
+
+function showReview(){
+
+  nextStep(4);
+
+  const html = `
+
+    <div class="review-section">
+
+      <h4>Applicant</h4>
+
+      <div class="review-row">
+        <span>Name</span>
+        <span>${fullName.value}</span>
+      </div>
+
+      <div class="review-row">
+        <span>Income</span>
+        <span>₹${Number(applicantIncome.value).toLocaleString()}</span>
+      </div>
+
+      <div class="review-row">
+        <span>CIBIL</span>
+        <span>${creditScore.value}</span>
+      </div>
+
+    </div>
+
+    <div class="review-section">
+
+      <h4>Loan</h4>
+
+      <div class="review-row">
+        <span>Type</span>
+        <span>${loanType.value}</span>
+      </div>
+
+      <div class="review-row">
+        <span>Amount</span>
+        <span>₹${Number(loanAmount.value).toLocaleString()}</span>
+      </div>
+
+      <div class="review-row">
+        <span>Term</span>
+        <span>${loanTerm.value} Months</span>
+      </div>
+
+    </div>
+  `;
+
+  document
+  .getElementById("reviewGrid")
+  .innerHTML = html;
+}
+
+/* SUBMIT */
+
+document
+.getElementById("loanForm")
+.addEventListener("submit",
+
+async(e)=>{
+
+  e.preventDefault();
+
+ const payload = {
+
+    Credit_Score:
+    Number(creditScore.value),
+
+    Monthly_Income:
+    Number(applicantIncome.value),
+
+    Coapplicant_Income:
+    Number(coapplicantIncome.value),
+
+    Loan_Amount:
+    Number(loanAmount.value),
+
+    Loan_Term:
+    Number(loanTerm.value),
+
+    Education:
+    education.value,
+
+    Self_Employed:
+    selfEmployed.value,
+
+    Dependents:
+    dependents.value,
+
+    Property_Area:
+    propertyArea.value,
+
+    Collateral:"None",
+
+    Age:
+    Number(age.value),
+
+    loan_type:
+    loanType.value
+};
+  try{
+
+    const response =
+    await fetch(
+
+      "http://localhost:5000/api/loan/apply",
+
+      {
+
+        method:"POST",
+
+        headers:{
+
+          "Content-Type":
+          "application/json",
+
+          Authorization:
+          `Bearer ${localStorage.getItem("token")}`
+        },
+
+        body:
+        JSON.stringify(payload)
+      }
+    );
+
+    const data =
+    await response.json();
+
+    if(!response.ok){
+
+      alert(
+        data.message ||
+        "Loan submission failed"
+      );
+
+      return;
+    }
+
+    alert(
+
+`Application Submitted Successfully
+
+Prediction:
+${data.ml_result?.approved
+? "APPROVED"
+: "REJECTED"}
+
+Probability:
+${(
+data.ml_result?.probability * 100
+).toFixed(2)}%
+
+Interest Rate:
+${data.ml_result?.interest_rate}%`
+    );
+
+    document
+    .getElementById("loanForm")
+    .reset();
+
+    location.reload();
+
+  }catch(err){
+
+    console.log(err);
+
+    alert("Server Error");
+  }
+
+});
+/* LOAD APPLICATIONS */
+
+async function loadApplications(){
+
+  try{
+
+    const response =
+    await fetch(
+
+      "http://localhost:5000/api/loan/my-applications",
+
+      {
+
+        headers:{
+
+          Authorization:
+          `Bearer ${localStorage.getItem("token")}`
+        }
+      }
+    );
+
+    const applications =
+    await response.json();
+
+    console.log(applications);
+
+    const tableBody =
+    document.getElementById(
+      "applicationsTableBody"
+    );
+
+    tableBody.innerHTML = "";
+
+    if(!applications.length){
+
+      tableBody.innerHTML = `
+
+        <tr>
+
+          <td colspan="4"
+              style="text-align:center;
+                     padding:20px;">
+
+            No applications found
+
+          </td>
+
+        </tr>
+      `;
+
+      return;
+    }
+
+    applications.forEach(app=>{
+
+      let statusClass = "";
+
+      if(app.status === "Approved"){
+
+        statusClass = "status-approved";
+
+      }else if(
+        app.status === "Rejected"
+      ){
+
+        statusClass = "status-rejected";
+
+      }else{
+
+        statusClass = "status-pending";
+      }
+
+      tableBody.innerHTML += `
+
+        <tr>
+
+          <td>
+            #${app.application_id}
+          </td>
+
+          <td>
+            ${app.loan_type}
+          </td>
+
+          <td>
+            ₹${Number(
+              app.loan_amount
+            ).toLocaleString()}
+          </td>
+
+          <td>
+
+            <span class="${statusClass}">
+
+              ${app.status}
+
+            </span>
+
+          </td>
+
+        </tr>
+      `;
+    });
+
+  }
+
+  catch(error){
+
+    console.log(error);
+  }
+}
+loadApplications();
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,954 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="UTF-8" />
+
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0" />
+
+  <title>
+    LoanIQ — Secure Login
+  </title>
+
+  <link rel="preconnect"
+        href="https://fonts.googleapis.com" />
+
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet" />
+
+  <style>
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
+
+html{
+  scroll-behavior:smooth;
+}
+
+body{
+
+  font-family:'DM Sans',sans-serif;
+
+  min-height:100vh;
+
+  background:#0f172a;
+
+  position:relative;
+
+  overflow-x:hidden;
+
+  overflow-y:auto;
+
+  display:flex;
+
+  justify-content:center;
+
+  align-items:flex-start;
+
+  padding:40px 20px;
+}
+
+/* Background Effects */
+
+body::before{
+
+  content:'';
+
+  position:fixed;
+
+  width:700px;
+  height:700px;
+
+  background:
+  radial-gradient(
+  circle,
+  rgba(16,185,129,0.18),
+  transparent 70%);
+
+  top:-200px;
+  left:-200px;
+
+  z-index:0;
+}
+
+body::after{
+
+  content:'';
+
+  position:fixed;
+
+  width:600px;
+  height:600px;
+
+  background:
+  radial-gradient(
+  circle,
+  rgba(59,130,246,0.15),
+  transparent 70%);
+
+  bottom:-250px;
+  right:-200px;
+
+  z-index:0;
+}
+
+/* Grid */
+
+.grid-overlay{
+
+  position:fixed;
+
+  inset:0;
+
+  z-index:0;
+
+  background-image:
+  linear-gradient(
+  rgba(255,255,255,0.03) 1px,
+  transparent 1px),
+
+  linear-gradient(
+  90deg,
+  rgba(255,255,255,0.03) 1px,
+  transparent 1px);
+
+  background-size:40px 40px;
+}
+
+/* Wrapper */
+
+.login-wrapper{
+
+  width:100%;
+
+  max-width:460px;
+
+  position:relative;
+
+  z-index:2;
+
+  margin:auto;
+}
+
+/* Card */
+
+.login-card{
+
+  background:
+  rgba(15,23,42,0.88);
+
+  border:
+  1px solid rgba(255,255,255,0.08);
+
+  backdrop-filter:blur(18px);
+
+  border-radius:32px;
+
+  padding:42px;
+
+  box-shadow:
+  0 20px 60px rgba(0,0,0,0.35);
+}
+
+/* Brand */
+
+.brand{
+
+  display:flex;
+
+  align-items:center;
+
+  gap:14px;
+
+  margin-bottom:30px;
+}
+
+.brand-icon{
+
+  width:56px;
+  height:56px;
+
+  border-radius:18px;
+
+  background:
+  linear-gradient(
+  135deg,
+  #10b981,
+  #3b82f6);
+
+  display:flex;
+
+  justify-content:center;
+
+  align-items:center;
+
+  color:white;
+
+  font-size:24px;
+
+  font-weight:700;
+
+  flex-shrink:0;
+}
+
+.brand-name{
+
+  font-size:34px;
+
+  font-weight:700;
+
+  color:white;
+
+  font-family:
+  'DM Serif Display',
+  serif;
+}
+
+/* Headings */
+
+.welcome-title{
+
+  font-size:28px;
+
+  font-weight:700;
+
+  color:white;
+
+  margin-bottom:10px;
+
+  line-height:1.3;
+}
+
+.welcome-subtitle{
+
+  color:#94a3b8;
+
+  line-height:1.7;
+
+  margin-bottom:34px;
+
+  font-size:15px;
+}
+
+/* Role Buttons */
+
+.role-switch{
+
+  display:flex;
+
+  gap:12px;
+
+  margin-bottom:28px;
+
+  flex-wrap:wrap;
+}
+
+.role-btn{
+
+  flex:1;
+
+  min-width:120px;
+
+  padding:14px;
+
+  border-radius:16px;
+
+  border:
+  1px solid rgba(255,255,255,0.08);
+
+  background:#111827;
+
+  color:#cbd5e1;
+
+  cursor:pointer;
+
+  transition:0.3s;
+
+  text-align:center;
+
+  font-weight:600;
+}
+
+.role-btn.active{
+
+  background:
+  linear-gradient(
+  135deg,
+  #10b981,
+  #059669);
+
+  color:white;
+
+  border-color:#10b981;
+}
+
+/* Inputs */
+
+.input-group{
+  margin-bottom:22px;
+}
+
+.input-group label{
+
+  display:block;
+
+  margin-bottom:10px;
+
+  color:#cbd5e1;
+
+  font-size:14px;
+
+  font-weight:500;
+}
+
+.input-group input{
+
+  width:100%;
+
+  padding:16px 18px;
+
+  border:none;
+
+  outline:none;
+
+  border-radius:16px;
+
+  background:#111827;
+
+  color:white;
+
+  font-size:15px;
+
+  border:1px solid transparent;
+
+  transition:0.3s;
+}
+
+.input-group input:focus{
+
+  border-color:#10b981;
+
+  box-shadow:
+  0 0 0 4px rgba(16,185,129,0.12);
+}
+
+/* Button */
+
+.login-btn{
+
+  width:100%;
+
+  padding:16px;
+
+  border:none;
+
+  border-radius:18px;
+
+  background:
+  linear-gradient(
+  135deg,
+  #10b981,
+  #059669);
+
+  color:white;
+
+  font-size:16px;
+
+  font-weight:700;
+
+  cursor:pointer;
+
+  transition:0.3s;
+
+  margin-top:10px;
+}
+
+.login-btn:hover{
+
+  transform:translateY(-2px);
+
+  box-shadow:
+  0 16px 30px rgba(16,185,129,0.25);
+}
+
+/* Footer */
+
+.footer-text{
+
+  text-align:center;
+
+  margin-top:24px;
+
+  color:#94a3b8;
+
+  font-size:14px;
+
+  line-height:1.6;
+}
+
+.footer-text a{
+
+  color:#10b981;
+
+  text-decoration:none;
+
+  font-weight:600;
+}
+
+/* Security */
+
+.secure-badge{
+
+  margin-top:30px;
+
+  display:flex;
+
+  justify-content:center;
+
+  align-items:center;
+
+  gap:10px;
+
+  color:#94a3b8;
+
+  font-size:13px;
+
+  flex-wrap:wrap;
+
+  text-align:center;
+}
+
+/* Tablet */
+
+@media(max-width:768px){
+
+  body{
+    padding:30px 16px;
+  }
+
+  .login-card{
+    padding:34px 26px;
+  }
+
+  .brand-name{
+    font-size:30px;
+  }
+
+  .welcome-title{
+    font-size:24px;
+  }
+
+}
+
+/* Mobile */
+
+@media(max-width:480px){
+
+  body{
+    padding:20px 12px;
+  }
+
+  .login-wrapper{
+    max-width:100%;
+  }
+
+  .login-card{
+
+    padding:28px 20px;
+
+    border-radius:24px;
+  }
+
+  .brand{
+
+    flex-direction:column;
+
+    text-align:center;
+  }
+
+  .brand-name{
+    font-size:26px;
+  }
+
+  .welcome-title{
+
+    font-size:22px;
+
+    text-align:center;
+  }
+
+  .welcome-subtitle{
+
+    text-align:center;
+
+    font-size:14px;
+  }
+
+  .role-switch{
+    flex-direction:column;
+  }
+
+  .role-btn{
+    width:100%;
+  }
+
+  .input-group input{
+    padding:14px;
+  }
+
+  .login-btn{
+    padding:15px;
+  }
+
+}
+
+/* Small Mobile */
+
+@media(max-width:360px){
+
+  .login-card{
+    padding:22px 16px;
+  }
+
+  .brand-icon{
+    width:48px;
+    height:48px;
+    font-size:20px;
+  }
+
+  .brand-name{
+    font-size:22px;
+  }
+
+}
+
+  </style>
+
+</head>
+
+<body>
+
+<div class="grid-overlay"></div>
+
+<div class="login-wrapper">
+
+  <div class="login-card">
+
+    <!-- Brand -->
+    <div class="brand">
+
+      <div class="brand-icon">
+        ⬡
+      </div>
+
+      <div class="brand-name">
+        LoanIQ
+      </div>
+
+    </div>
+
+    <!-- Welcome -->
+    <h1 class="welcome-title">
+      Welcome Back
+    </h1>
+
+    
+
+    <!-- Role Switch -->
+    <div class="role-switch">
+
+      <div class="role-btn active"
+           onclick="setRole('customer',this)">
+
+        Customer
+
+      </div>
+
+      <div class="role-btn"
+           onclick="setRole('admin',this)">
+
+        Admin
+
+      </div>
+
+    </div>
+
+  <form id="authForm">
+
+  <!-- Register Only -->
+  <div class="input-group register-only"
+       style="display:none;">
+
+    <label>
+      Full Name
+    </label>
+
+    <input type="text"
+           id="full_name"
+           placeholder="Enter your full name" />
+
+  </div>
+
+  <!-- Email -->
+  <div class="input-group">
+
+    <label>
+      Email Address
+    </label>
+
+    <input type="email"
+           id="email"
+           placeholder="Enter your email"
+           required />
+
+  </div>
+
+  <!-- Password -->
+  <div class="input-group">
+
+    <label>
+      Password
+    </label>
+
+    <input type="password"
+           id="password"
+           placeholder="Enter your password"
+           required />
+
+  </div>
+
+  <!-- Confirm Password -->
+  <div class="input-group register-only"
+       style="display:none;">
+
+    <label>
+      Confirm Password
+    </label>
+
+    <input type="password"
+           id="confirmPassword"
+           placeholder="Confirm your password" />
+
+  </div>
+
+  <button class="login-btn"
+          type="submit"
+          id="submitBtn">
+
+    Secure Login
+
+  </button>
+
+</form>
+    <div class="footer-text">
+
+  <span id="authText">
+
+    Don't have a customer account?
+
+  </span>
+
+  <a href="#"
+     id="toggleAuth">
+
+    Create Account
+
+  </a>
+
+</div>
+    <div class="secure-badge">
+
+      🔒 Enterprise Grade Security
+
+    </div>
+
+  </div>
+
+</div>
+
+<script>
+
+let selectedRole = "customer";
+
+let isRegisterMode = false;
+
+/* Role Toggle */
+
+function setRole(role,element){
+
+  selectedRole = role;
+
+  document
+  .querySelectorAll(".role-btn")
+  .forEach(btn=>{
+
+    btn.classList.remove("active");
+
+  });
+
+  element.classList.add("active");
+
+  /* Disable admin registration */
+
+  if(role === "admin"){
+
+    isRegisterMode = false;
+
+    updateAuthMode();
+
+    document
+    .getElementById("toggleAuth")
+    .style.display = "none";
+
+    document
+    .getElementById("authText")
+    .innerText =
+    "Admin accounts are managed securely.";
+
+  }
+
+  else{
+
+    document
+    .getElementById("toggleAuth")
+    .style.display = "inline";
+
+    updateFooterText();
+  }
+
+}
+
+/* Toggle Login/Register */
+
+document
+.getElementById("toggleAuth")
+
+.addEventListener("click",(e)=>{
+
+  e.preventDefault();
+
+  isRegisterMode = !isRegisterMode;
+
+  updateAuthMode();
+
+});
+
+/* Update UI */
+
+function updateAuthMode(){
+
+  const registerFields =
+  document.querySelectorAll(".register-only");
+
+  registerFields.forEach(field=>{
+
+    field.style.display =
+    isRegisterMode ? "block" : "none";
+
+  });
+
+  const submitBtn =
+  document.getElementById("submitBtn");
+
+  submitBtn.innerText =
+  isRegisterMode
+  ? "Create Customer Account"
+  : "Secure Login";
+
+  updateFooterText();
+}
+
+/* Footer Text */
+
+function updateFooterText(){
+
+  if(selectedRole !== "customer") return;
+
+  document.getElementById("authText")
+  .innerText = isRegisterMode
+  ? "Already have an account?"
+  : "Don't have a customer account?";
+
+  document.getElementById("toggleAuth")
+  .innerText = isRegisterMode
+  ? "Login"
+  : "Create Account";
+}
+
+/* Submit */
+
+document
+.getElementById("authForm")
+
+.addEventListener(
+"submit",
+
+async(e)=>{
+
+  e.preventDefault();
+
+  const email =
+  document.getElementById("email").value;
+
+  const password =
+  document.getElementById("password").value;
+
+  /* REGISTER */
+
+  if(isRegisterMode){
+
+    const full_name =
+    document
+    .getElementById("full_name")
+    .value;
+
+    const confirmPassword =
+    document
+    .getElementById("confirmPassword")
+    .value;
+
+    if(password !== confirmPassword){
+
+      alert(
+        "Passwords do not match"
+      );
+
+      return;
+    }
+
+    try{
+
+      const response =
+      await fetch(
+        "http://localhost:5000/api/auth/register",
+        {
+          method:"POST",
+
+          headers:{
+            "Content-Type":"application/json"
+          },
+
+          body:JSON.stringify({
+
+            full_name,
+            email,
+            password,
+            role:"customer"
+
+          })
+        }
+      );
+
+      const data =
+      await response.json();
+
+      if(!response.ok){
+
+        alert(data.message);
+
+        return;
+      }
+
+      alert(
+        "Account Created Successfully"
+      );
+
+      isRegisterMode = false;
+
+      updateAuthMode();
+
+    }
+
+    catch(error){
+
+      console.log(error);
+
+      alert(
+        "Server Error"
+      );
+    }
+
+    return;
+  }
+
+  /* LOGIN */
+
+  try{
+
+    const response =
+    await fetch(
+      "http://localhost:5000/api/auth/login",
+      {
+        method:"POST",
+
+        headers:{
+          "Content-Type":"application/json"
+        },
+
+        body:JSON.stringify({
+          email,
+          password
+        })
+      }
+    );
+
+    const data =
+    await response.json();
+
+    if(!response.ok){
+
+      alert(data.message);
+
+      return;
+    }
+
+    localStorage.setItem(
+      "token",
+      data.token
+    );
+
+    localStorage.setItem(
+      "role",
+      data.role
+    );
+
+    localStorage.setItem(
+      "user",
+      JSON.stringify(data.user)
+    );
+
+    /* Redirect */
+
+    if(data.role === "admin"){
+
+      window.location.href =
+      "admin.html";
+    }
+
+    else{
+
+      window.location.href =
+      "customer.html";
+    }
+
+  }
+
+  catch(error){
+
+    console.log(error);
+
+    alert(
+      "Server Error"
+    );
+  }
+
+});
+
+</script>
+
+</body>
+</html>

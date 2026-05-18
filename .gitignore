@@ -1,0 +1,128 @@
+# =========================
+# NODE.JS
+# =========================
+
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Environment Variables
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Logs
+logs
+*.log
+
+# Runtime data
+pids
+*.pid
+*.seed
+*.pid.lock
+
+# Coverage
+coverage/
+.nyc_output/
+
+# Build folders
+dist/
+build/
+
+# Cache
+.cache/
+.parcel-cache/
+
+# OS Files
+.DS_Store
+Thumbs.db
+
+# IDE / Editor
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# =========================
+# PYTHON / FASTAPI / ML
+# =========================
+
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual Environments
+venv/
+env/
+ENV/
+.venv/
+
+# Python packaging
+*.egg-info/
+.eggs/
+pip-wheel-metadata/
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Pytest
+.pytest_cache/
+
+# Mypy
+.mypy_cache/
+
+# Ruff
+.ruff_cache/
+
+# Coverage
+htmlcov/
+.coverage
+.coverage.*
+
+# ML Models
+*.pkl
+*.joblib
+*.h5
+*.onnx
+*.pt
+*.pth
+
+# =========================
+# DATABASE
+# =========================
+
+*.sqlite
+*.db
+
+# MySQL dumps
+*.sql
+
+# =========================
+# FRONTEND
+# =========================
+
+frontend/dist/
+frontend/build/
+
+# Vite
+vite.svg
+
+# =========================
+# DEPLOYMENT
+# =========================
+
+.vercel/
+.render/
+
+# =========================
+# MISC
+# =========================
+
+*.tmp
+*.temp
+*.bak
+*.old
