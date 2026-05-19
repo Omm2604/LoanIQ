@@ -769,7 +769,7 @@ async function fetchApplications(){
     const response =
     await fetch(
 
-      "http://localhost:5000/api/admin/applications",
+      "http://13.206.83.182:3000/api/admin/applications",
 
       {
         headers:{
@@ -785,6 +785,7 @@ async function fetchApplications(){
     renderApplications(data);
 
     updateStats(data);
+    updateCharts(data);
 
   }
 
@@ -986,6 +987,240 @@ function updateStats(data){
   data.filter(app=>app.status==="Pending").length;
 }
 
+/* REALTIME ANALYTICS */
+
+function updateCharts(data){
+
+  /* STATUS COUNTS */
+
+  const approved =
+  data.filter(
+
+    app=>app.status === "Approved"
+
+  ).length;
+
+  const rejected =
+  data.filter(
+
+    app=>app.status === "Rejected"
+
+  ).length;
+
+  const pending =
+  data.filter(
+
+    app=>app.status === "Pending"
+
+  ).length;
+
+  /* RISK COUNTS */
+
+  const lowRisk =
+  data.filter(
+
+    app=>app.risk_verdict === "Low"
+
+  ).length;
+
+  const mediumRisk =
+  data.filter(
+
+    app=>app.risk_verdict === "Medium"
+
+  ).length;
+
+  const highRisk =
+  data.filter(
+
+    app=>app.risk_verdict === "High"
+
+  ).length;
+
+  /* MONTHLY APPLICATIONS */
+
+  const monthlyData = {};
+
+  data.forEach(app=>{
+
+    const date =
+    new Date(app.applied_at);
+
+    const month =
+    date.toLocaleString(
+
+      "default",
+
+      { month:"short" }
+    );
+
+    monthlyData[month] =
+
+    (monthlyData[month] || 0) + 1;
+  });
+
+  const months =
+  Object.keys(monthlyData);
+
+  const applications =
+  Object.values(monthlyData);
+
+  /* DESTROY OLD CHARTS */
+
+  if(trendChart){
+
+    trendChart.destroy();
+  }
+
+  if(loanChart){
+
+    loanChart.destroy();
+  }
+
+  if(riskChart){
+
+    riskChart.destroy();
+  }
+
+  if(approvalChart){
+
+    approvalChart.destroy();
+  }
+
+  /* TREND CHART */
+
+  trendChart = new Chart(
+
+    document.getElementById(
+      "trendChart"
+    ),
+
+    {
+
+      type:"line",
+
+      data:{
+
+        labels:months,
+
+        datasets:[{
+
+          label:"Applications",
+
+          data:applications,
+
+          tension:0.4
+        }]
+      }
+    }
+  );
+
+  /* APPROVAL DISTRIBUTION */
+
+  loanChart = new Chart(
+
+    document.getElementById(
+      "loanChart"
+    ),
+
+    {
+
+      type:"doughnut",
+
+      data:{
+
+        labels:[
+
+          "Approved",
+          "Rejected",
+          "Pending"
+
+        ],
+
+        datasets:[{
+
+          data:[
+
+            approved,
+            rejected,
+            pending
+          ]
+        }]
+      }
+    }
+  );
+
+  /* RISK DISTRIBUTION */
+
+  riskChart = new Chart(
+
+    document.getElementById(
+      "riskChart"
+    ),
+
+    {
+
+      type:"bar",
+
+      data:{
+
+        labels:[
+
+          "Low",
+          "Medium",
+          "High"
+
+        ],
+
+        datasets:[{
+
+          label:"Risk",
+
+          data:[
+
+            lowRisk,
+            mediumRisk,
+            highRisk
+          ]
+        }]
+      }
+    }
+  );
+
+  /* APPROVAL RATIO */
+
+  approvalChart = new Chart(
+
+    document.getElementById(
+      "approvalChart"
+    ),
+
+    {
+
+      type:"pie",
+
+      data:{
+
+        labels:[
+
+          "Approved",
+          "Rejected"
+
+        ],
+
+        datasets:[{
+
+          data:[
+
+            approved,
+            rejected
+          ]
+        }]
+      }
+    }
+  );
+}
+
 /* Approve */
 
 async function approveLoan(id){
@@ -995,7 +1230,7 @@ async function approveLoan(id){
     const response =
     await fetch(
 
-      `http://localhost:5000/api/admin/approve/${id}`,
+      `http://13.206.83.182:3000/api/admin/approve/${id}`,
 
       {
 
@@ -1025,6 +1260,7 @@ async function approveLoan(id){
     alert("Application Approved");
 
     fetchApplications();
+
 
   }
 
@@ -1085,108 +1321,14 @@ async function rejectLoan(id){
     alert("Rejection Failed");
   }
 }
-/* Charts */
 
-new Chart(
-
-  document.getElementById("trendChart"),
-
-  {
-    type:"line",
-
-    data:{
-
-      labels:[
-        "Jan",
-        "Feb",
-        "Mar",
-        "Apr",
-        "May"
-      ],
-
-      datasets:[{
-
-        label:"Applications",
-
-        data:[30,45,52,61,74],
-
-        tension:0.4
-      }]
-    }
-  }
-);
-
-new Chart(
-
-  document.getElementById("loanChart"),
-
-  {
-    type:"doughnut",
-
-    data:{
-
-      labels:[
-        "Approved",
-        "Rejected",
-        "Pending"
-      ],
-
-      datasets:[{
-
-        data:[65,20,15]
-      }]
-    }
-  }
-);
-
-new Chart(
-
-  document.getElementById("riskChart"),
-
-  {
-    type:"bar",
-
-    data:{
-
-      labels:[
-        "Low",
-        "Medium",
-        "High"
-      ],
-
-      datasets:[{
-
-        label:"Risk",
-
-        data:[48,32,20]
-      }]
-    }
-  }
-);
-
-new Chart(
-
-  document.getElementById("approvalChart"),
-
-  {
-    type:"pie",
-
-    data:{
-
-      labels:[
-        "Approved",
-        "Rejected"
-      ],
-
-      datasets:[{
-
-        data:[72,28]
-      }]
-    }
-  }
-);
 
 /* Init */
+let trendChart;
+let loanChart;
+let riskChart;
+let approvalChart;
+
 
 fetchApplications();
 

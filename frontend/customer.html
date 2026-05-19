@@ -148,11 +148,7 @@
 
         <div class="header-actions">
 
-          <span class="date-badge">
-
-            May 17, 2026
-
-          </span>
+         
 
         </div>
 
@@ -166,12 +162,13 @@
             Applications
           </div>
 
-          <div class="kpi-value">
-            4
-          </div>
+          <div class="kpi-value"
+     id="totalApplications">
+  0
+</div>
 
           <div class="kpi-change positive">
-            +1 this month
+            
           </div>
 
         </div>
@@ -182,12 +179,13 @@
             Approved
           </div>
 
-          <div class="kpi-value">
-            2
-          </div>
+          <div class="kpi-value"
+     id="approvedApplications">
+  0
+</div>
 
           <div class="kpi-change positive">
-            Excellent standing
+            
           </div>
 
         </div>
@@ -198,12 +196,13 @@
             Pending
           </div>
 
-          <div class="kpi-value">
-            1
-          </div>
+          <div class="kpi-value"
+     id="pendingApplications">
+  0
+</div>
 
           <div class="kpi-change">
-            Under review
+          
           </div>
 
         </div>
@@ -214,12 +213,13 @@
             Credit Score
           </div>
 
-          <div class="kpi-value">
-            742
-          </div>
+          <div class="kpi-value"
+     id="customerCreditScore">
+  0
+</div>
 
           <div class="kpi-change positive">
-            Excellent
+        
           </div>
 
         </div>
@@ -747,6 +747,7 @@
               <th>ID</th>
               <th>Loan Type</th>
               <th>Amount</th>
+               <th>Eligibility</th>
               <th>Status</th>
 
             </tr>
@@ -1149,7 +1150,7 @@ async(e)=>{
     const response =
     await fetch(
 
-      "http://localhost:5000/api/loan/apply",
+      "http://13.206.83.182:3000/api/loan/apply",
 
       {
 
@@ -1181,30 +1182,33 @@ async(e)=>{
 
       return;
     }
-
-    alert(
+alert(
 
 `Application Submitted Successfully
 
-Prediction:
-${data.ml_result?.approved
-? "APPROVED"
-: "REJECTED"}
+Eligibility Score:
+${data.ml_result?.eligibility_score || 0}%
 
-Probability:
-${(
-data.ml_result?.probability * 100
-).toFixed(2)}%
-
-Interest Rate:
-${data.ml_result?.interest_rate}%`
-    );
-
+Status:
+Pending Admin Review`
+);
     document
     .getElementById("loanForm")
     .reset();
 
-    location.reload();
+    loadApplications();
+
+nextStep(1);
+
+document
+.querySelectorAll(".form-step")
+.forEach(el=>
+  el.classList.remove("active")
+);
+
+document
+.getElementById("step-1")
+.classList.add("active");
 
   }catch(err){
 
@@ -1223,7 +1227,7 @@ async function loadApplications(){
     const response =
     await fetch(
 
-      "http://localhost:5000/api/loan/my-applications",
+      "http://13.206.83.182:3000/api/loan/my-applications",
 
       {
 
@@ -1237,6 +1241,53 @@ async function loadApplications(){
 
     const applications =
     await response.json();
+    
+    /* DASHBOARD DATA */
+
+const total =
+applications.length;
+
+const approved =
+applications.filter(
+
+  app=>app.status === "Approved"
+
+).length;
+
+const pending =
+applications.filter(
+
+  app=>app.status === "Pending"
+
+).length;
+
+/* LATEST CREDIT SCORE */
+
+const latestCreditScore =
+
+applications.length
+
+? applications[0].credit_score
+
+: 0;
+
+/* UPDATE KPI UI */
+
+document
+.getElementById("totalApplications")
+.innerText = total;
+
+document
+.getElementById("approvedApplications")
+.innerText = approved;
+
+document
+.getElementById("pendingApplications")
+.innerText = pending;
+
+document
+.getElementById("customerCreditScore")
+.innerText = latestCreditScore;
 
     console.log(applications);
 
@@ -1253,7 +1304,7 @@ async function loadApplications(){
 
         <tr>
 
-          <td colspan="4"
+          <td colspan="5"
               style="text-align:center;
                      padding:20px;">
 
@@ -1306,13 +1357,21 @@ async function loadApplications(){
 
           <td>
 
-            <span class="${statusClass}">
+  ${Number(
+    app.ml_eligibility_score
+  ).toFixed(1)}%
 
-              ${app.status}
+</td>
 
-            </span>
+<td>
 
-          </td>
+  <span class="${statusClass}">
+
+    ${app.status}
+
+  </span>
+
+</td>
 
         </tr>
       `;
