@@ -152,12 +152,3 @@ python loan_model.py
 
 > Machine Learning · Loan Prediction · Random Forest · Gradient Boosting · Feature Engineering · Scikit-learn · Pandas · NumPy · Data Preprocessing · Model Evaluation · AUC-ROC · Confusion Matrix · Full-Stack · Chart.js · Real-time Dashboard · REST API Design
 
----
-
-## 👤 Author
-
-**Raj Kumar** — Credit Analytics & ML Engineering
-
----
-
-*Built as a portfolio project demonstrating end-to-end ML system design, from data engineering to production-grade UI.*
