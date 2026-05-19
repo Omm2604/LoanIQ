@@ -15,7 +15,9 @@ exports.getApplications = (req,res)=>{
             a.risk_verdict,
             a.ml_eligibility_score,
             a.ml_recommendation,
+            a.applied_at,
             u.full_name
+
 
         FROM applications a
 

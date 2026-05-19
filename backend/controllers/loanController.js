@@ -92,7 +92,7 @@ exports.applyLoan = async(req,res)=>{
             prediction
         );
 
-        /* EMI */
+        /* EMI CALCULATION */
 
         const monthlyRate =
         9.5 / 12 / 100;
@@ -116,7 +116,7 @@ exports.applyLoan = async(req,res)=>{
             ) - 1
         );
 
-        /* RISK */
+        /* RISK ANALYSIS */
 
         let risk = "Medium";
 
@@ -130,17 +130,28 @@ exports.applyLoan = async(req,res)=>{
 
             risk = "High";
         }
+
         /* ML RECOMMENDATION */
 
-const mlRecommendation =
+        const mlRecommendation =
 
-prediction.approved
+        prediction.approved
 
-? "Approve"
+        ? "Approve"
 
-: "Reject";
+        : "Reject";
 
-        /* INSERT */
+        /* ELIGIBILITY SCORE */
+
+        const eligibilityScore =
+
+        Number(
+
+            prediction.probability * 100
+
+        ).toFixed(1);
+
+        /* INSERT APPLICATION */
 
         db.query(
 
@@ -208,13 +219,13 @@ prediction.approved
 
                 emi,
 
-               prediction.probability * 100,
+                eligibilityScore,
 
-risk,
+                risk,
 
-mlRecommendation,
+                mlRecommendation,
 
-"Pending"
+                "Pending"
             ],
 
             (err,result)=>{
@@ -233,6 +244,8 @@ mlRecommendation,
                     });
                 }
 
+                /* CUSTOMER SAFE RESPONSE */
+
                 res.status(201).json({
 
                     success:true,
@@ -242,17 +255,11 @@ mlRecommendation,
 
                     ml_result:{
 
-                        approved:
-                        prediction.approved,
-
-                        probability:
-                        prediction.probability,
+                        eligibility_score:
+                        eligibilityScore,
 
                         confidence:
                         prediction.confidence,
-
-                        risk_score:
-                        prediction.risk_score,
 
                         interest_rate:
                         prediction.interest_rate
@@ -278,7 +285,7 @@ mlRecommendation,
     }
 };
 
-/* MY APPLICATIONS */
+/* CUSTOMER APPLICATIONS */
 
 exports.myApplications = (req,res)=>{
 
@@ -290,7 +297,15 @@ exports.myApplications = (req,res)=>{
 
     db.query(
 
-        `SELECT *
+        `SELECT
+
+            application_id,
+            loan_type,
+            loan_amount,
+            credit_score,
+            ml_eligibility_score,
+            status,
+            applied_at
 
         FROM applications
 
