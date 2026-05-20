@@ -96,10 +96,14 @@ exports.login = async (req, res) => {
 
     try {
 
+        console.log("STEP 1 - Request received");
+
         const {
             email,
             password
         } = req.body;
+
+        console.log("STEP 2 - Body parsed");
 
         const [results] = await db.query(
 
@@ -108,7 +112,11 @@ exports.login = async (req, res) => {
             [email]
         );
 
+        console.log("STEP 3 - Query completed");
+
         if (!results || results.length === 0) {
+
+            console.log("STEP 4 - User not found");
 
             return res.status(400).json({
                 message: "User not found"
@@ -117,24 +125,34 @@ exports.login = async (req, res) => {
 
         const user = results[0];
 
+        console.log("STEP 5 - User found");
+
         const isMatch =
             await bcrypt.compare(
                 password,
                 user.password
             );
 
+        console.log("STEP 6 - Password checked");
+
         if (!isMatch) {
+
+            console.log("STEP 7 - Invalid password");
 
             return res.status(400).json({
                 message: "Invalid credentials"
             });
         }
 
+        console.log("STEP 8 - Generating token");
+
         const token =
             generateToken(
                 user.user_id,
                 user.role
             );
+
+        console.log("STEP 9 - Token generated");
 
         res.json({
 
@@ -156,11 +174,13 @@ exports.login = async (req, res) => {
             }
         });
 
+        console.log("STEP 10 - Response sent");
+
     }
 
     catch (error) {
 
-        console.log(error);
+        console.log("LOGIN ERROR:", error);
 
         res.status(500).json({
             message: "Server Error"
