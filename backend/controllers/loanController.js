@@ -153,38 +153,24 @@ exports.applyLoan = async(req,res)=>{
 
         /* INSERT APPLICATION */
 
-        db.query(
+        await db.query(
 
             `INSERT INTO applications(
 
                 applicant_id,
-
                 employment_type,
-
                 applicant_income,
-
                 coapplicant_income,
-
                 credit_score,
-
                 loan_type,
-
                 loan_amount,
-
                 loan_term_months,
-
                 property_area,
-
                 collateral_type,
-
                 estimated_emi,
-
                 ml_eligibility_score,
-
                 risk_verdict,
-
                 ml_recommendation,
-
                 status
 
             )
@@ -192,81 +178,45 @@ exports.applyLoan = async(req,res)=>{
             VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)`,
 
             [
-
                 applicant_id,
-
-                Self_Employed === "Yes"
-
-                ? "Self-Employed"
-
-                : "Salaried",
-
+                Self_Employed === "Yes" ? "Self-Employed" : "Salaried",
                 Monthly_Income,
-
                 Coapplicant_Income,
-
                 Credit_Score,
-
                 loan_type,
-
                 Loan_Amount,
-
                 Loan_Term,
-
                 Property_Area,
-
                 Collateral,
-
                 emi,
+                eligibilityScore,
+                risk,
+                mlRecommendation,
+                "Pending"
+            ]
+        );
 
+        /* CUSTOMER SAFE RESPONSE */
+
+        res.status(201).json({
+
+            success:true,
+
+            message:
+            "Loan Application Submitted",
+
+            ml_result:{
+
+                eligibility_score:
                 eligibilityScore,
 
-                risk,
+                confidence:
+                prediction.confidence,
 
-                mlRecommendation,
-
-                "Pending"
-            ],
-
-            (err,result)=>{
-
-                if(err){
-
-                    console.log(
-                        "MYSQL ERROR:",
-                        err
-                    );
-
-                    return res.status(500).json({
-
-                        message:
-                        "Database Insert Failed"
-                    });
-                }
-
-                /* CUSTOMER SAFE RESPONSE */
-
-                res.status(201).json({
-
-                    success:true,
-
-                    message:
-                    "Loan Application Submitted",
-
-                    ml_result:{
-
-                        eligibility_score:
-                        eligibilityScore,
-
-                        confidence:
-                        prediction.confidence,
-
-                        interest_rate:
-                        prediction.interest_rate
-                    }
-                });
+                interest_rate:
+                prediction.interest_rate
             }
-        );
+        });
 
     }
 
@@ -287,7 +237,7 @@ exports.applyLoan = async(req,res)=>{
 
 /* CUSTOMER APPLICATIONS */
 
-exports.myApplications = (req,res)=>{
+exports.myApplications = async (req,res)=>{
 
     const applicant_id =
 
@@ -295,40 +245,33 @@ exports.myApplications = (req,res)=>{
 
     req.user.id;
 
-    db.query(
+    try {
+        const [results] = await db.query(
 
-        `SELECT
+            `SELECT
 
-            application_id,
-            loan_type,
-            loan_amount,
-            credit_score,
-            ml_eligibility_score,
-            status,
-            applied_at
+                application_id,
+                loan_type,
+                loan_amount,
+                credit_score,
+                ml_eligibility_score,
+                status,
+                applied_at
 
-        FROM applications
+            FROM applications
 
-        WHERE applicant_id=?
+            WHERE applicant_id=?
 
-        ORDER BY applied_at DESC`,
+            ORDER BY applied_at DESC`,
 
-        [applicant_id],
+            [applicant_id]
+        );
 
-        (err,results)=>{
-
-            if(err){
-
-                console.log(err);
-
-                return res.status(500).json({
-
-                    message:
-                    "Database Error"
-                });
-            }
-
-            res.json(results);
-        }
-    );
+        res.json(results);
+    } catch (err) {
+        console.log(err);
+        return res.status(500).json({
+            message: "Database Error"
+        });
+    }
 };

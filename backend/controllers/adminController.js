@@ -2,114 +2,96 @@ const db = require("../config/db");
 
 /* ALL APPLICATIONS */
 
-exports.getApplications = (req,res)=>{
+exports.getApplications = async (req,res)=>{
 
-    db.query(
+    try {
+        const [results] = await db.query(
 
-        `SELECT
+            `SELECT
 
-            a.application_id,
-            a.loan_type,
-            a.loan_amount,
-            a.status,
-            a.risk_verdict,
-            a.ml_eligibility_score,
-            a.ml_recommendation,
-            a.applied_at,
-            u.full_name
+                a.application_id,
+                a.loan_type,
+                a.loan_amount,
+                a.status,
+                a.risk_verdict,
+                a.ml_eligibility_score,
+                a.ml_recommendation,
+                a.applied_at,
+                u.full_name
 
 
-        FROM applications a
+            FROM applications a
 
-        JOIN users u
+            JOIN users u
 
-        ON a.applicant_id = u.user_id
+            ON a.applicant_id = u.user_id
 
-        ORDER BY a.applied_at DESC`,
+            ORDER BY a.applied_at DESC`
+        );
 
-        (err,results)=>{
-
-            if(err){
-
-                console.log(err);
-
-                return res.status(500).json({
-
-                    message:"Database Error"
-                });
-            }
-
-            res.json(results);
-        }
-    );
+        res.json(results);
+    } catch (err) {
+        console.log(err);
+        return res.status(500).json({
+            message:"Database Error"
+        });
+    }
 };
 
 /* APPROVE */
 
-exports.approveLoan = (req,res)=>{
+exports.approveLoan = async (req,res)=>{
 
     const { id } = req.params;
 
-    db.query(
+    try {
+        await db.query(
 
-        `UPDATE applications
-         SET status='Approved'
-         WHERE application_id=?`,
+            `UPDATE applications
+             SET status='Approved'
+             WHERE application_id=?`,
 
-        [id],
+            [id]
+        );
 
-        (err,result)=>{
+        res.json({
 
-            if(err){
+            success:true,
 
-                console.log(err);
-
-                return res.status(500).json({
-
-                    message:"Approval Failed"
-                });
-            }
-
-            res.json({
-
-                success:true,
-
-                message:"Loan Approved"
-            });
-        }
-    );
+            message:"Loan Approved"
+        });
+    } catch (err) {
+        console.log(err);
+        return res.status(500).json({
+            message:"Approval Failed"
+        });
+    }
 };
 
-exports.rejectLoan = (req,res)=>{
+exports.rejectLoan = async (req,res)=>{
 
     const { id } = req.params;
 
-    db.query(
+    try {
+        await db.query(
 
-        `UPDATE applications
-         SET status='Rejected'
-         WHERE application_id=?`,
+            `UPDATE applications
+             SET status='Rejected'
+             WHERE application_id=?`,
 
-        [id],
+            [id]
+        );
 
-        (err,result)=>{
+        res.json({
 
-            if(err){
+            success:true,
 
-                console.log(err);
-
-                return res.status(500).json({
-
-                    message:"Rejection Failed"
-                });
-            }
-
-            res.json({
-
-                success:true,
-
-                message:"Loan Rejected"
-            });
-        }
-    );
+            message:"Loan Rejected"
+        });
+    } catch (err) {
+        console.log(err);
+        return res.status(500).json({
+            message:"Rejection Failed"
+        });
+    }
 };

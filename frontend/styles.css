@@ -33,13 +33,14 @@ body {
   background: var(--bg);
   color: var(--text-primary);
   min-height: 100vh;
-  overflow: hidden;
+  overflow-x:hidden;
+overflow-y:auto;
 }
 
 /* Layout */
 .app-shell {
   display: flex;
-  height: 100vh;
+min-height:100vh;
 }
 
 /* Sidebar */
@@ -294,6 +295,9 @@ td {
   padding: 13px 16px;
   border-bottom: 1px solid var(--border);
   color: var(--text-secondary);
+  
+
+    word-break:break-word;
 }
 tr:last-child td { border-bottom: none; }
 tr:hover td { background: var(--bg-elevated); color: var(--text-primary); }
@@ -787,4 +791,568 @@ select option { background: var(--bg-elevated); }
   .kpi-grid { grid-template-columns: 1fr 1fr; }
   .apply-layout { grid-template-columns: 1fr; }
   .score-panel { position: static; }
+}
+
+
+/* =========================================
+   ADMIN RESPONSIVE FIXES
+========================================= */
+
+/* TABLE */
+
+.table-responsive{
+
+    width:100%;
+
+    overflow-x:auto;
+
+    -webkit-overflow-scrolling:touch;
+
+    border-radius:18px;
+}
+
+.applications-table{
+
+    min-width:1100px;
+}
+
+/* ANALYTICS GRID */
+
+.analytics-grid{
+
+    display:grid;
+
+    grid-template-columns:
+    repeat(auto-fit,minmax(320px,1fr));
+
+    gap:20px;
+}
+
+/* CHART CARDS */
+
+.chart-card{
+
+    width:100%;
+
+    overflow:hidden;
+}
+
+canvas{
+
+    max-width:100%;
+}
+
+/* KPI GRID */
+
+.kpi-grid{
+
+    display:grid;
+
+    grid-template-columns:
+    repeat(auto-fit,minmax(220px,1fr));
+
+    gap:18px;
+}
+
+/* PAGE HEADER */
+
+.page-header{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:flex-start;
+
+    gap:20px;
+
+    flex-wrap:wrap;
+}
+
+/* ACTION BUTTONS */
+
+.action-buttons{
+
+    display:flex;
+
+    gap:10px;
+
+    flex-wrap:wrap;
+}
+
+.approve-btn,
+.reject-btn{
+
+    white-space:nowrap;
+}
+
+/* MAIN LAYOUT */
+
+.app-shell{
+
+    display:flex;
+
+    min-height:100vh;
+}
+
+.main-content{
+
+    flex:1;
+
+    overflow-x:hidden;
+}
+
+/* MOBILE */
+
+@media(max-width:992px){
+
+    .analytics-grid{
+
+        grid-template-columns:1fr;
+    }
+}
+
+@media(max-width:768px){
+
+    /* APP */
+
+    .app-shell{
+
+        flex-direction:column;
+    }
+
+    /* SIDEBAR */
+
+    .sidebar{
+
+        width:100%;
+
+        height:auto;
+
+        position:relative;
+
+        border-right:none;
+
+        border-bottom:1px solid var(--border);
+    }
+
+    .sidebar-nav{
+
+        display:flex;
+
+        flex-direction:row;
+
+        overflow-x:auto;
+
+        gap:10px;
+
+        padding-bottom:10px;
+    }
+
+    .nav-item{
+
+        min-width:max-content;
+
+        white-space:nowrap;
+    }
+
+    .sidebar-footer{
+
+        display:none;
+    }
+
+    /* MAIN CONTENT */
+
+    .main-content{
+
+        width:100%;
+
+        padding:0;
+    }
+
+    .page{
+
+        padding:20px 16px;
+    }
+
+    /* TITLES */
+
+    .page-title{
+
+        font-size:34px;
+    }
+
+    /* TABLE */
+
+    .applications-table{
+
+        min-width:1200px;
+    }
+
+    table{
+
+        font-size:13px;
+    }
+
+    th,
+    td{
+
+        padding:12px;
+    }
+
+    /* KPI */
+
+    .kpi-card{
+
+        padding:18px;
+    }
+
+    .kpi-value{
+
+        font-size:26px;
+    }
+
+    /* BUTTONS */
+
+    .action-buttons{
+
+        flex-direction:column;
+    }
+
+    .approve-btn,
+    .reject-btn{
+
+        width:100%;
+    }
+
+    /* CHARTS */
+
+    .chart-card{
+
+        padding:18px;
+    }
+}
+
+@media(max-width:480px){
+
+    .page-title{
+
+        font-size:28px;
+    }
+
+    .kpi-grid{
+
+        grid-template-columns:1fr;
+    }
+
+    .analytics-grid{
+
+        gap:16px;
+    }
+}
+
+/* =========================================
+   RESPONSIVE FIXES
+========================================= */
+
+html{
+
+    scroll-behavior:smooth;
+}
+
+body{
+
+    overflow-x:hidden;
+
+    overflow-y:auto;
+}
+
+/* TABLE RESPONSIVE */
+
+.table-responsive{
+
+    width:100%;
+
+    overflow-x:auto;
+
+    -webkit-overflow-scrolling:touch;
+
+    border-radius:16px;
+}
+
+.applications-table{
+
+    min-width:750px;
+}
+
+/* MAIN LAYOUT */
+
+.app-shell{
+
+    display:flex;
+
+    min-height:100vh;
+}
+
+.main-content{
+
+    flex:1;
+
+    width:100%;
+
+    overflow-x:hidden;
+}
+
+/* KPI GRID */
+
+.kpi-grid{
+
+    display:grid;
+
+    grid-template-columns:
+    repeat(auto-fit,minmax(220px,1fr));
+
+    gap:16px;
+}
+
+/* FORM GRID */
+
+.field-grid{
+
+    display:grid;
+
+    grid-template-columns:
+    repeat(auto-fit,minmax(240px,1fr));
+
+    gap:18px;
+}
+
+/* REVIEW GRID */
+
+.review-grid{
+
+    display:grid;
+
+    grid-template-columns:
+    repeat(auto-fit,minmax(250px,1fr));
+
+    gap:16px;
+}
+
+/* PAGE HEADER */
+
+.page-header{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:flex-start;
+
+    gap:20px;
+
+    flex-wrap:wrap;
+}
+
+/* APPLY LAYOUT */
+
+.apply-layout{
+
+    display:grid;
+
+    grid-template-columns:1fr 320px;
+
+    gap:24px;
+}
+
+/* BUTTONS */
+
+button{
+
+    max-width:100%;
+}
+
+/* CHARTS */
+
+canvas{
+
+    max-width:100%;
+}
+
+/* MOBILE */
+
+@media(max-width:992px){
+
+    .apply-layout{
+
+        grid-template-columns:1fr;
+    }
+
+    .score-panel{
+
+        position:relative;
+
+        top:0;
+    }
+}
+
+@media(max-width:768px){
+
+    /* APP */
+
+    .app-shell{
+
+        flex-direction:column;
+    }
+
+    /* SIDEBAR */
+
+    .sidebar{
+
+        width:100%;
+
+        height:auto;
+
+        position:relative;
+
+        border-right:none;
+
+        border-bottom:1px solid var(--border);
+    }
+
+    .sidebar-nav{
+
+        flex-direction:row;
+
+        overflow-x:auto;
+
+        gap:10px;
+
+        padding-bottom:10px;
+    }
+
+    .nav-item{
+
+        min-width:max-content;
+
+        white-space:nowrap;
+    }
+
+    .sidebar-footer{
+
+        display:none;
+    }
+
+    /* CONTENT */
+
+    .main-content{
+
+        width:100%;
+
+        padding:0;
+    }
+
+    .page{
+
+        padding:20px 16px;
+    }
+
+    .page-title{
+
+        font-size:36px;
+    }
+
+    /* TABLE */
+
+    .applications-table{
+
+        min-width:850px;
+    }
+
+    table{
+
+        font-size:13px;
+    }
+
+    th,
+    td{
+
+        padding:12px;
+    }
+
+    /* STEPS */
+
+    .steps-bar{
+
+        overflow-x:auto;
+
+        padding-bottom:10px;
+    }
+
+    .step{
+
+        min-width:90px;
+    }
+
+    /* KPI */
+
+    .kpi-card{
+
+        padding:18px;
+    }
+
+    .kpi-value{
+
+        font-size:26px;
+    }
+
+    /* EMI */
+
+    .emi-value{
+
+        font-size:24px;
+    }
+
+    /* SCORE PANEL */
+
+    .score-panel{
+
+        width:100%;
+    }
+
+    /* ACTIONS */
+
+    .step-actions{
+
+        flex-direction:column;
+    }
+
+    .btn-primary,
+    .btn-outline{
+
+        width:100%;
+    }
+}
+
+@media(max-width:480px){
+
+    .page-title{
+
+        font-size:30px;
+    }
+
+    .kpi-grid{
+
+        grid-template-columns:1fr;
+    }
+
+    .hero-actions{
+
+        flex-direction:column;
+    }
+
+    .page-subtitle{
+
+        line-height:1.7;
+    }
 }

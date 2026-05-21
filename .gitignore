@@ -84,7 +84,7 @@ htmlcov/
 .coverage.*
 
 # ML Models
-*.pkl
+
 *.joblib
 *.h5
 *.onnx

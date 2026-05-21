@@ -473,7 +473,7 @@
       </div>
 
       <div class="applications-table">
-
+        <div class="applications-table">
         <table class="admin-table">
 
           <thead>
@@ -498,6 +498,7 @@
           </tbody>
 
         </table>
+        </div>
 
       </div>
 
@@ -769,7 +770,7 @@ async function fetchApplications(){
     const response =
     await fetch(
 
-      "http://13.206.83.182:3000/api/admin/applications",
+      "http://127.0.0.1:5000/api/admin/applications",
 
       {
         headers:{
@@ -1230,7 +1231,7 @@ async function approveLoan(id){
     const response =
     await fetch(
 
-      `http://13.206.83.182:3000/api/admin/approve/${id}`,
+      `http://127.0.0.1:5000/api/admin/approve/${id}`,
 
       {
 
@@ -1281,7 +1282,7 @@ async function rejectLoan(id){
     const response =
     await fetch(
 
-      `http://localhost:5000/api/admin/reject/${id}`,
+      `http://127.0.0.1:5000/api/admin/reject/${id}`,
 
       {
 
