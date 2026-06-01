@@ -1,161 +1,194 @@
 # 🏦 LoanIQ — Intelligent Loan Approval System
 
-> A full-stack ML-powered loan approval system with a modern dark-themed dashboard, multi-step application form, real-time eligibility scoring, and an ensemble ML backend.
+> A full-stack, ML-powered loan approval platform featuring a Node.js backend, a Python FastAPI machine learning service, and a beautiful dark-themed Vanilla JS frontend.
 
 ---
 
-## 🚀 Live Demo
+## 🏗️ Architecture Overview
 
-Open `index.html` directly in your browser — no server required.
+LoanIQ is built using a modern microservice-inspired architecture:
 
----
-
-## 📌 Project Highlights
-
-| Area | Details |
-|------|---------|
-| **Frontend** | Vanilla JS + Chart.js, dark UI, multi-step form |
-| **ML Backend** | Python · Scikit-learn · Random Forest + Gradient Boosting |
-| **Dataset** | Synthetic (5,000 samples) with realistic correlations |
-| **Model Accuracy** | ~94.2% · AUC-ROC: 0.94 |
-| **Features** | 16 engineered features |
-| **Live Scoring** | Real-time eligibility ring updates as you type |
-
----
-
-## 🏗️ Project Structure
-
-```
-loan-approval-system/
-├── index.html          # Main SPA — dashboard, form, analytics, model pages
-├── styles.css          # Dark theme, responsive layout
-├── app.js              # Frontend logic: form, charts, ML decision engine
-├── loan_model.py       # Python ML pipeline (Scikit-learn)
-├── requirements.txt    # Python dependencies
-└── README.md           # This file
-```
-
----
-
-## 🖥️ Frontend Features
-
-### Dashboard
-- KPI cards: total applications, approval rate, avg loan amount, default risk
-- Line chart: monthly approval/rejection/pending trends
-- Donut chart: loan type distribution
-- Recent applications table with risk score bars
-
-### Loan Application (4-Step Wizard)
-1. **Personal Info** — name, age, education, dependents, residential area
-2. **Financial Details** — income, co-applicant income, CIBIL score + meter
-3. **Loan Requirements** — type, amount, term + live EMI calculator
-4. **Review & Submit** — ML pre-assessment, risk preview, submit
-
-### Real-Time Eligibility Panel
-- Animated SVG ring updating live as form fills
-- 5 factor bars (Credit, Income, DTI, Education, Employment)
-- Color-coded verdict (green/amber/red)
-
-### Analytics Page
-- Approval rate by income band (grouped bar)
-- Credit score distribution (colored bar)
-- Risk factor correlation heatmap
-
-### ML Model Page
-- Accuracy, Precision, Recall, AUC-ROC metrics
-- Feature importance bars
-- Confusion matrix (TP/FP/FN/TN)
-- Algorithm pipeline visualization
-
----
-
-## 🧠 Machine Learning (Python)
-
-### Features Used
-| Feature | Importance | Type |
-|---------|-----------|------|
-| CIBIL Credit Score | 35% | Numerical |
-| Monthly Income | 25% | Numerical |
-| Loan-to-Income Ratio | 20% | Derived |
-| Education Level | 10% | Categorical |
-| Employment Type | 10% | Categorical |
-
-### Algorithms Compared
-- **Logistic Regression** — Baseline linear model
-- **Random Forest** — Ensemble of 100 decision trees ✅ Best
-- **Gradient Boosting** — Sequential boosting with 150 estimators
-
-### Engineering Pipeline
-```
-Raw Data → Imputation → Label Encoding → Feature Derivation →
-Standard Scaling → Random Forest → Probability Output → Decision
-```
-
-### Run the ML Model
-```bash
-pip install -r requirements.txt
-python loan_model.py
-```
-
----
-
-## 📊 Model Performance
-
-```
-MODEL                    ACC     PREC    REC     F1      AUC
-======================================================================
-Logistic Regression     88.40%  87.20%  91.10%  89.10%  0.9210
-Random Forest           94.20%  91.80%  88.60%  90.20%  0.9430  ✅
-Gradient Boosting       93.80%  90.50%  89.40%  89.90%  0.9410
-```
-
----
-
-## 🔑 Key Concepts Demonstrated
-
-- **Data Preprocessing**: Missing value imputation, label encoding
-- **Feature Engineering**: DTI ratio, credit tier, EMI-to-income ratio
-- **Ensemble Learning**: Random Forest with hyperparameter tuning
-- **Model Evaluation**: Cross-validation, confusion matrix, AUC-ROC
-- **Frontend Integration**: JS-based decision engine mirroring Python ML
-- **UX Design**: Multi-step wizard, live validation, real-time feedback
-
----
-
-## ⚙️ Setup
-
-### Frontend (No setup needed)
-```bash
-# Just open in browser
-open index.html
-```
-
-### Python Backend
-```bash
-pip install -r requirements.txt
-python loan_model.py
-```
+1. **Frontend (`/frontend`)**: A responsive, dark-themed SPA built with HTML5, CSS3, Vanilla JavaScript, and Chart.js.
+2. **Backend API (`/backend`)**: A Node.js & Express server handling JWT authentication, MySQL database interactions, and business logic.
+3. **ML Service (`/ml-service`)**: A Python FastAPI service that hosts a Scikit-Learn Random Forest model to evaluate loan applications in real-time.
+4. **Database**: MySQL database storing users, applications, and system logs.
 
 ---
 
 ## 🛠️ Tech Stack
 
-**Frontend**: HTML5 · CSS3 · Vanilla JavaScript · Chart.js 4.4
-
-**Backend**: Python 3.10+ · Pandas · NumPy · Scikit-learn
-
-**Design**: Dark theme · DM Serif Display · DM Sans · JetBrains Mono
-
----
-
-
-
-<<<<<<< HEAD
-=======
-
-
+*   **Frontend**: HTML5, CSS3, Vanilla JS, Chart.js 4.4
+*   **Backend**: Node.js, Express, `mysql2`, `jsonwebtoken`, `bcryptjs`, `cors`
+*   **ML Service**: Python 3.10+, FastAPI, Uvicorn, Scikit-Learn, Pandas, NumPy, Joblib
+*   **Database**: MySQL Server
+*   **Design**: Custom Dark Theme, Glassmorphism, Google Fonts (DM Serif Display, DM Sans)
 
 ---
 
-*Built as a portfolio project demonstrating end-to-end ML system design, from data engineering to production-grade UI.*
+## 🌟 Key Features
 
+### 👤 Customer Portal
+*   **Secure Authentication**: JWT-based login and registration system.
+*   **Loan Application Wizard**: Multi-step form collecting personal, financial, and loan requirement details.
+*   **Real-time Feedback**: Live EMI calculation based on loan terms.
+*   **Application Tracking**: View the status of past loan applications.
+
+### 🛡️ Admin Dashboard
+*   **Real-time Analytics**: KPI cards and Chart.js graphs showing total applications, approval rates, and risk distributions.
+*   **Application Management**: Review pending applications, see the AI's recommendation (Risk Score, Interest Rate, Probability), and manually Approve/Reject.
+*   **Model Insights**: View ML Model performance metrics (Accuracy, Precision, Recall, AUC-ROC).
+
+### 🧠 Machine Learning Engine
+*   **Ensemble Model**: Trained using Random Forest with engineered features (DTI ratio, Credit Tier).
+*   **Explainable AI**: Returns specific "Reason Codes" explaining why an application was approved or rejected.
+*   **Dynamic Pricing**: Automatically calculates personalized interest rates based on credit score.
+
+---
+
+## 📸 Screenshots
+
+> *Tip: Save your images in an `assets/` folder in this repository, then replace these placeholder links with the actual file paths (e.g., `assets/login.png`).*
+
+### 1. Customer Dashboard Wizard
+![Customer Dashboard](./assets/customer.png)
+
+### 2. Loan Application
+![Loan Application](./assets/application.png)
+
+
+### 3. Admin Dashboard
+![Admin Dashboard](./assets/admin.png)
+
+### 4. Admin Analytics
+![Admin Analytics](./assets/analytics.png)
+
+### 5. Submitted Applications
+![Loan Applications](./assets/applications.png)
+
+---
+## 🚀 Local Running Steps
+
+Follow these steps to get the entire stack running locally on your machine.
+
+### Prerequisites
+*   [Node.js](https://nodejs.org/) (v18+)
+*   [Python](https://www.python.org/) (v3.10+)
+*   [MySQL Server](https://dev.mysql.com/downloads/mysql/)
+
+---
+
+### Step 1: Database Setup
+
+1. Open your MySQL command line or a GUI tool like MySQL Workbench.
+2. Run the following commands to create the database and a dedicated user (or use your `root` user):
+
+```sql
+CREATE DATABASE loan_system;
+-- If using a specific user as configured in the backend:
+CREATE USER 'root'@'localhost' IDENTIFIED BY 'your_database_password';
+GRANT ALL PRIVILEGES ON loan_system.* TO 'root'@'localhost';
+FLUSH PRIVILEGES;
+```
+
+*(Note: The backend tables (`users`, `applications`) will need to be created if they do not exist. Refer to your local database schema).*
+
+---
+
+### Step 2: Start the Python ML Service
+
+The ML service evaluates loan applications via an API.
+
+1. Open a new terminal and navigate to the ML service folder:
+   ```bash
+   cd ml-service
+   ```
+2. Create and activate a virtual environment (Recommended):
+   ```bash
+   # Windows
+   python -m venv venv
+   .\venv\Scripts\activate
+   
+   # macOS/Linux
+   python3 -m venv venv
+   source venv/bin/activate
+   ```
+3. Install the required Python libraries:
+   ```bash
+   pip install -r ../requirements.txt
+   ```
+4. Train the model (generates `loan_model.pkl`):
+   ```bash
+   python train_model.py
+   ```
+5. Start the FastAPI server on **Port 8000**:
+   ```bash
+   uvicorn app:app --port 8000 --reload
+   ```
+
+---
+
+### Step 3: Start the Node.js Backend
+
+The Node backend handles auth and acts as a bridge between the frontend, the database, and the ML API.
+
+1. Open a **second** terminal and navigate to the backend folder:
+   ```bash
+   cd backend
+   ```
+2. Install Node dependencies:
+   ```bash
+   npm install
+   ```
+3. Create a `.env` file in the `backend` folder (if it doesn't exist) and configure it:
+   ```env
+   PORT=5000
+   DB_HOST=localhost
+   DB_USER=root
+   DB_PASSWORD=your_database_password
+   DB_NAME=loan_system
+   JWT_SECRET=your_super_secret_jwt_key
+   ML_API_URL=http://127.0.0.1:8000
+   ```
+4. Start the Express server on **Port 5000**:
+   ```bash
+   npm run dev
+   # OR: node server.js
+   ```
+
+---
+
+### Step 4: Run the Frontend
+
+1. Open a **third** terminal and navigate to the frontend folder:
+   ```bash
+   cd frontend
+   ```
+2. You can serve the frontend using any lightweight HTTP server. For example, using Python or Node:
+   ```bash
+   # Using Python
+   python -m http.server 5500
+   
+   # OR using Node (npx)
+   npx serve .
+   ```
+3. Open your browser and navigate to:
+   **http://localhost:5500/login.html**
+
+*Tip: You can also use the **Live Server** extension in VS Code to run the frontend instantly.*
+
+---
+
+## 👨‍💻 Login Credentials
+
+To test the application, you can use the following default roles:
+
+**Customer**
+* Register a new account via the `/login.html` page by toggling to "Customer" mode.
+
+**Admin Dashboard**
+* You must have an account with the role `admin` in your MySQL `users` table. 
+* *Example Local Admin*: `admin@gmail.com` / `admin123`
+
+---
+
+*Built to demonstrate end-to-end ML system design, from data engineering and API development to production-grade UI integration.*
