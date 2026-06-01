@@ -47,8 +47,6 @@ LoanIQ is built using a modern microservice-inspired architecture:
 
 ## 📸 Screenshots
 
-> *Tip: Save your images in an `assets/` folder in this repository, then replace these placeholder links with the actual file paths (e.g., `assets/login.png`).*
-
 ### 1. Customer Dashboard Wizard
 ![Customer Dashboard](./assets/customer.png)
 
@@ -89,8 +87,6 @@ CREATE USER 'root'@'localhost' IDENTIFIED BY 'your_database_password';
 GRANT ALL PRIVILEGES ON loan_system.* TO 'root'@'localhost';
 FLUSH PRIVILEGES;
 ```
-
-*(Note: The backend tables (`users`, `applications`) will need to be created if they do not exist. Refer to your local database schema).*
 
 ---
 
