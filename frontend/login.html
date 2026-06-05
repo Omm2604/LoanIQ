@@ -528,6 +528,7 @@ body::after{
 
   </style>
 
+  <script src="config.js"></script>
 </head>
 
 <body>
@@ -639,7 +640,7 @@ body::after{
           type="submit"
           id="submitBtn">
 
-    Secure Login
+    Login
 
   </button>
 
@@ -660,11 +661,7 @@ body::after{
   </a>
 
 </div>
-    <div class="secure-badge">
-
-      🔒 Enterprise Grade Security
-
-    </div>
+  
 
   </div>
 
@@ -824,7 +821,7 @@ async(e)=>{
 
       const response =
       await fetch(
-        "http://127.0.0.1:5000/api/auth/register",
+        API_BASE_URL + "/api/auth/register",
         {
           method:"POST",
 
@@ -881,7 +878,7 @@ async(e)=>{
 
     const response =
     await fetch(
-      "http://127.0.0.1:5000/api/auth/login",
+      API_BASE_URL + "/api/auth/login",
       {
         method:"POST",
 
