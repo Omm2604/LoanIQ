@@ -19,6 +19,7 @@
   <link rel="stylesheet"
         href="styles.css" />
 
+  <script src="config.js"></script>
 </head>
 
 <body>
@@ -737,7 +738,6 @@
       </div>
 
       <div class="applications-table">
-         <div class="applications-table">
         <table>
 
           <thead>
@@ -759,7 +759,6 @@
           </tbody>
 
         </table>
-        </div>
       </div>
 
     </section>
@@ -1149,8 +1148,7 @@ async(e)=>{
 
     const response =
     await fetch(
-
-      "http://127.0.0.1:5000/api/loan/apply",
+      API_BASE_URL + "/api/loan/apply",
 
       {
 
@@ -1226,8 +1224,7 @@ async function loadApplications(){
 
     const response =
     await fetch(
-
-      "http://127.0.0.1:5000/api/loan/my-applications",
+      API_BASE_URL + "/api/loan/my-applications",
 
       {
 
