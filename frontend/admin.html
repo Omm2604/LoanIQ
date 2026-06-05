@@ -193,6 +193,7 @@
 
   </style>
 
+  <script src="config.js"></script>
 </head>
 
 <body>
@@ -473,7 +474,6 @@
       </div>
 
       <div class="applications-table">
-        <div class="applications-table">
         <table class="admin-table">
 
           <thead>
@@ -496,9 +496,8 @@
           <tbody id="applicationTableBody">
 
           </tbody>
-
         </table>
-        </div>
+        
 
       </div>
 
@@ -769,8 +768,7 @@ async function fetchApplications(){
 
     const response =
     await fetch(
-
-      "http://127.0.0.1:5000/api/admin/applications",
+      API_BASE_URL + "/api/admin/applications",
 
       {
         headers:{
@@ -1230,8 +1228,7 @@ async function approveLoan(id){
 
     const response =
     await fetch(
-
-      `http://127.0.0.1:5000/api/admin/approve/${id}`,
+      `${API_BASE_URL}/api/admin/approve/${id}`,
 
       {
 
@@ -1281,8 +1278,7 @@ async function rejectLoan(id){
 
     const response =
     await fetch(
-
-      `http://127.0.0.1:5000/api/admin/reject/${id}`,
+      `${API_BASE_URL}/api/admin/reject/${id}`,
 
       {
 
